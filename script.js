@@ -5,7 +5,6 @@ const borderingCountries = document.getElementById("bordering-countries");
 const spinner = document.getElementById("loading-spinner");
 const errorMessage = document.getElementById("error-message");
 
-// Hide spinner initially
 spinner.classList.add("hidden");
 
 async function searchCountry(countryName) {
@@ -15,15 +14,12 @@ async function searchCountry(countryName) {
     }
 
     try {
-        // Clear previous results
         errorMessage.textContent = "";
         countryInfo.innerHTML = "";
         borderingCountries.innerHTML = "";
 
-        // Show spinner
         spinner.classList.remove("hidden");
 
-        // 🔥 FIXED: Added ?fullText=true for exact match
         const response = await fetch(
             `https://restcountries.com/v3.1/name/${countryName}?fullText=true`
         );
@@ -35,7 +31,6 @@ async function searchCountry(countryName) {
         const data = await response.json();
         const country = data[0];
 
-        // Display main country info
         countryInfo.innerHTML = `
             <h2>${country.name.common}</h2>
             <p><strong>Capital:</strong> ${country.capital ? country.capital[0] : "N/A"}</p>
@@ -46,7 +41,6 @@ async function searchCountry(countryName) {
                  width="150">
         `;
 
-        // Fetch bordering countries
         if (country.borders && country.borders.length > 0) {
             for (let code of country.borders) {
                 const borderResponse = await fetch(
@@ -82,13 +76,11 @@ function showError(message) {
     errorMessage.textContent = message;
 }
 
-// Button click event
 searchBtn.addEventListener("click", () => {
     const country = countryInput.value.trim();
     searchCountry(country);
 });
 
-// Enter key event
 countryInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
         searchCountry(countryInput.value.trim());
