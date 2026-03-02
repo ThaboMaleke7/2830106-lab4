@@ -44,7 +44,6 @@ header {
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 20px auto;
-    display: none;
 }
 
 @keyframes spin {
@@ -74,4 +73,8 @@ header {
     font-weight: bold;
     margin-top: 15px;
     text-align: center;
+}
+
+.hidden {
+    display: none !important;
 }
